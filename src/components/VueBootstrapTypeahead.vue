@@ -17,6 +17,7 @@
         @blur="handleBlur"
         @input="handleInput($event.target.value)"
         autocomplete="off"
+        :requiredValue="requiredValue"
       />
       <div v-if="$slots.append || append" class="input-group-append">
         <slot name="append">
@@ -96,7 +97,8 @@ export default {
     placeholder: String,
     prepend: String,
     append: String,
-    rawResults: Boolean
+    rawResults: Boolean,
+    requiredValue: Boolean
   },
 
   computed: {
@@ -141,6 +143,7 @@ export default {
 
       this.inputValue = evt.text
       this.$emit('hit', evt.data)
+      this.selectedValue = true
       this.$refs.input.blur()
       this.isFocused = false
     },
@@ -150,11 +153,15 @@ export default {
       if (tgt && tgt.classList.contains('vbst-item')) {
         return
       }
+      if (this.requiredValue && !this.selectedValue) {
+        this.inputValue = ''
+      }
       this.isFocused = false
     },
 
     handleInput(newValue) {
       this.inputValue = newValue
+      this.selectedValue = false
 
       // If v-model is being used, emit an input event
       if (typeof this.value !== 'undefined') {
@@ -166,7 +173,8 @@ export default {
   data() {
     return {
       isFocused: false,
-      inputValue: ''
+      inputValue: '',
+      selectedValue: false
     }
   },
 
