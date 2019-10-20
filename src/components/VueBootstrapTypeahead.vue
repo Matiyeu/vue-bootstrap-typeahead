@@ -174,7 +174,7 @@ export default {
     return {
       isFocused: false,
       inputValue: this.value || '',
-      selectedValue: false
+      selectedValue: this.value !== null
     }
   },
 
