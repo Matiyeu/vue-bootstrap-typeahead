@@ -117,6 +117,15 @@ export default {
           text: this.serializer(d)
         }
       })
+    },
+
+    inputValue: {
+      get: function() {
+        return this.value || ''
+      },
+      set: function(newValue) {
+        this.inputValue = newValue
+      }
     }
   },
 
@@ -173,7 +182,6 @@ export default {
   data() {
     return {
       isFocused: false,
-      inputValue: '',
       selectedValue: false
     }
   },
