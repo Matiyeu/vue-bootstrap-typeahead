@@ -12,7 +12,7 @@
         :class="`form-control ${inputClass}`"
         :placeholder="placeholder"
         :aria-label="placeholder"
-        :value="inputValue"
+        :value="value"
         @focus="isFocused = true"
         @blur="handleBlur"
         @input="handleInput($event.target.value)"
@@ -29,7 +29,7 @@
       class="vbt-autcomplete-list"
       ref="list"
       v-show="isFocused && data.length > 0"
-      :query="inputValue"
+      :query="value"
       :data="formattedData"
       :background-variant="backgroundVariant"
       :text-variant="textVariant"
@@ -141,7 +141,7 @@ export default {
         this.$emit('input', evt.text)
       }
 
-      this.inputValue = evt.text
+      // this.inputValue = evt.text
       this.$emit('hit', evt.data)
       this.selectedValue = true
       this.$refs.input.blur()
@@ -154,13 +154,14 @@ export default {
         return
       }
       if (this.requiredValue && !this.selectedValue) {
-        this.inputValue = ''
+        // this.inputValue = ''
+        this.value = ''
       }
       this.isFocused = false
     },
 
     handleInput(newValue) {
-      this.inputValue = newValue
+      // this.inputValue = newValue
       this.selectedValue = false
 
       // If v-model is being used, emit an input event
@@ -173,7 +174,7 @@ export default {
   data() {
     return {
       isFocused: false,
-      inputValue: this.value || '',
+      // inputValue: this.value || '',
       selectedValue: this.value !== null
     }
   },
