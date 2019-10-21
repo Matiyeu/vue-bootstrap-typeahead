@@ -179,6 +179,12 @@ export default {
     }
   },
 
+  watch: {
+    'value'() {
+      this.inputValue = this.value
+    }
+  },
+
   mounted() {
     this.$_ro = new ResizeObserver(e => {
       this.resizeList(this.$refs.input)
