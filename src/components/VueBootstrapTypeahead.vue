@@ -16,6 +16,7 @@
         @focus="isFocused = true"
         @blur="handleBlur"
         @input="handleInput($event.target.value)"
+        @click="handleClick"
         autocomplete="off"
         :requiredValue="requiredValue"
       />
@@ -167,6 +168,10 @@ export default {
       if (typeof this.value !== 'undefined') {
         this.$emit('input', newValue)
       }
+    },
+    
+    handleClick(evt) {
+      this.$emit('click', evt)
     }
   },
 
