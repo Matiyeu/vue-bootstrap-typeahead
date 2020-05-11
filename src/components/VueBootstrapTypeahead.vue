@@ -169,7 +169,7 @@ export default {
         this.$emit('input', newValue)
       }
     },
-    
+
     handleClick(evt) {
       this.$emit('click', evt)
     }

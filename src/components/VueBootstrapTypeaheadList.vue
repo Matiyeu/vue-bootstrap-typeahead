@@ -84,7 +84,7 @@ export default {
         return this.data
       }
 
-      if (this.query.length === 0 || this.query.length < this.minMatchingChars) {
+      if (!this.query || this.query.length === 0 || this.query.length < this.minMatchingChars) {
         return []
       }
 
