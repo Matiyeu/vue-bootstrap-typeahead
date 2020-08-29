@@ -38,6 +38,7 @@
       :minMatchingChars="minMatchingChars"
       @hit="handleHit"
       :rawResults="rawResults"
+      :ignoreAccents="ignoreAccents"
     >
       <!-- pass down all scoped slots -->
       <template v-for="(slot, slotName) in $scopedSlots" :slot="slotName" slot-scope="{ data, htmlText }">
@@ -99,7 +100,11 @@ export default {
     prepend: String,
     append: String,
     rawResults: Boolean,
-    requiredValue: Boolean
+    requiredValue: Boolean,
+    ignoreAccents: {
+      type: Boolean,
+      default: false
+    }
   },
 
   computed: {

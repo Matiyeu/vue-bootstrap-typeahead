@@ -17,6 +17,7 @@
 
 <script>
 import VueBootstrapTypeaheadListItem from './VueBootstrapTypeaheadListItem.vue'
+import accentize from 'accentize'
 
 function sanitize(text) {
   return text.replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -59,6 +60,10 @@ export default {
     },
     rawResults: {
       type: Boolean
+    },
+    ignoreAccents: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -69,7 +74,7 @@ export default {
         if (this.query.length === 0) {
           return text
         }
-        const re = new RegExp(this.escapedQuery, 'gi')
+        const re = this.ignoreAccents ? accentize(this.escapedQuery) : new RegExp(this.escapedQuery, 'gi')
 
         return text.replace(re, `<strong>$&</strong>`)
       }
@@ -88,7 +93,7 @@ export default {
         return []
       }
 
-      const re = new RegExp(this.escapedQuery, 'gi')
+      const re = this.ignoreAccents ? accentize(this.escapedQuery) : new RegExp(this.escapedQuery, 'gi')
 
       // Filter, sort, and concat
       return this.data
