@@ -1,12 +1,12 @@
 <template>
   <div class="list-group shadow">
     <vue-bootstrap-typeahead-list-item
-      v-for="(item, id) in matchedItems" :key="id"
-      :data="item.data"
-      :html-text="highlight(item.text)"
-      :background-variant="backgroundVariant"
-      :text-variant="textVariant"
-      @click.native="handleHit(item, $event)"
+        v-for="(item, id) in matchedItems" :key="id"
+        :data="item.data"
+        :html-text="highlight(item.text)"
+        :background-variant="backgroundVariant"
+        :text-variant="textVariant"
+        @click.native="handleHit(item, $event)"
     >
       <template v-if="$scopedSlots.suggestion" slot="suggestion" slot-scope="{ data, htmlText }">
         <slot name="suggestion" v-bind="{ data, htmlText }" />
@@ -18,6 +18,7 @@
 <script>
 import VueBootstrapTypeaheadListItem from './VueBootstrapTypeaheadListItem.vue'
 import accentize from 'accentize'
+import removeAccents from 'remove-accents'
 
 function sanitize(text) {
   return text.replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -81,7 +82,8 @@ export default {
     },
 
     escapedQuery() {
-      return escapeRegExp(sanitize(this.query))
+      const r = escapeRegExp(sanitize(this.query))
+      return this.ignoreAccents ? removeAccents(r) : r
     },
 
     matchedItems() {
